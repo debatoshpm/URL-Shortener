@@ -21,7 +21,7 @@ class Shorty extends Component {
 
   shorten = () => () => {
     axios
-      .post("http://localhost:5000/api/url/shorten", {
+      .post("/api/url/shorten", {
         longUrl: this.state.url,
       })
       .then((res) => {
