@@ -49,7 +49,7 @@ class Shorty extends Component {
         <div className="container">
           <p className="text-center name pt-5 pb-3">Shorty</p>
           <p className="text-center intro">Shorten any long url for free</p>
-          <div className="input-group mb-3 pt-3">
+          <div className="input-group pt-3">
             <input
               type="text"
               className="form-control"
@@ -68,6 +68,11 @@ class Shorty extends Component {
               </button>
             </div>
           </div>
+          {this.state.error ? (
+            <div className="text-warning mb-3">Error!! Check long url!!</div>
+          ) : (
+            <div className="mb-3"></div>
+          )}
           <div className="input-group mb-3">
             <input
               id="myInput"
@@ -92,16 +97,15 @@ class Shorty extends Component {
           </div>
           <div className="text-center pt-3">
             {this.state.flag ? (
-              <QRCode value={this.state.shortUrl} size="256" />
+              <QRCode value={this.state.shortUrl} size={256} />
             ) : (
               <span></span>
             )}
           </div>
 
-          {this.state.error ? <div>Error!! Check long url!!</div> : <div></div>}
-        </div>
-        <div className="text-center text-light">
-          Created by Debatosh Pal Majumder.
+          <div className="text-center text-light">
+            Created by Debatosh Pal Majumder.
+          </div>
         </div>
       </div>
     );
