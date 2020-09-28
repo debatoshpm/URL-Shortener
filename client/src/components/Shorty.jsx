@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./Shorty.css";
 import * as clipboard from "clipboard-polyfill/text";
+const validUrl = require("valid-url");
 var QRCode = require("qrcode.react");
 
 class Shorty extends Component {
@@ -20,21 +21,24 @@ class Shorty extends Component {
   };
 
   shorten = () => () => {
-    axios
-      .post("/api/url/shorten", {
-        longUrl: this.state.url,
-      })
-      .then((res) => {
-        console.log(res.data);
-        this.setState({ flag: 1 });
-        this.setState({ error: 0 });
-        this.setState({ shortUrl: res.data.shortUrl });
-        this.setState({ cpmsg: "Copy to clipboard" });
-      })
-      .catch((err) => {
-        console.log(err);
-        this.setState({ error: 1 });
-      });
+    if (validUrl.isUri(this.state.url)) {
+      axios
+        .post("/api/url/shorten", {
+          longUrl: this.state.url,
+        })
+        .then((res) => {
+          console.log(res.data);
+          this.setState({ flag: 1 });
+          this.setState({ error: 0 });
+          this.setState({ shortUrl: res.data.shortUrl });
+          this.setState({ cpmsg: "Copy to clipboard" });
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      this.setState({ error: 1 });
+    }
   };
 
   copy = () => {
@@ -51,7 +55,7 @@ class Shorty extends Component {
           <p className="text-center intro">Shorten any long url for free</p>
           <div className="input-group pt-3">
             <input
-              type="text"
+              type="url"
               className="form-control"
               placeholder="Enter URL to be shortened"
               aria-label="Recipient's username"
@@ -70,7 +74,8 @@ class Shorty extends Component {
           </div>
           {this.state.error ? (
             <div className="text-warning mb-3">
-              Error!! URL should be like https://www.google.com
+              URL should start with http:// or https:// or other appropriate
+              protocol (ftp, pop3,... etc)
             </div>
           ) : (
             <div className="mb-3"></div>
