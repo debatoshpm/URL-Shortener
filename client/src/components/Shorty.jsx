@@ -69,7 +69,9 @@ class Shorty extends Component {
             </div>
           </div>
           {this.state.error ? (
-            <div className="text-warning mb-3">Error!! Check long url!!</div>
+            <div className="text-warning mb-3">
+              Error!! URL should be in https:// format
+            </div>
           ) : (
             <div className="mb-3"></div>
           )}
