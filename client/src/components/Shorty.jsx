@@ -70,7 +70,7 @@ class Shorty extends Component {
           </div>
           {this.state.error ? (
             <div className="text-warning mb-3">
-              Error!! URL should be in https:// format
+              Error!! URL should be like https://www.google.com .
             </div>
           ) : (
             <div className="mb-3"></div>
