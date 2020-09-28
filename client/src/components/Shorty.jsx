@@ -100,6 +100,9 @@ class Shorty extends Component {
 
           {this.state.error ? <div>Error!! Check long url!!</div> : <div></div>}
         </div>
+        <div className="text-center text-light">
+          Created by Debatosh Pal Majumder.
+        </div>
       </div>
     );
   }
